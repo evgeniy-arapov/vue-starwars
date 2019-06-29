@@ -24,13 +24,12 @@
   html {
     /** NOTE: set rem
     */
-    font-size: 10px;
+    font-size: 14px;
   }
 
   body {
-    background-color: #eee;
+    @apply bg-gray-100 text-black;
     font-family: sans-serif;
-    color: #333;
     font-size: 14px;
   }
 
