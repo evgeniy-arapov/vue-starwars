@@ -24,7 +24,7 @@ export default new Router({
       component: People,
       children: [
         {
-          path: "people/:id",
+          path: ":id",
           name: "personInfo",
           component: PersonInfo
         }
@@ -36,7 +36,7 @@ export default new Router({
       component: Starships,
       children: [
         {
-          path: "starships/:id",
+          path: ":id",
           name: "starshipInfo",
           component: StarshipInfo
         }

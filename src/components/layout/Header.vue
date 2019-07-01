@@ -26,10 +26,10 @@
         <div class="head-bottom">
           <transition name="slide-fade">
             <nav v-if="isMenuShow">
-              <router-link to="people">
+              <router-link to="/people">
                 People
               </router-link>
-              <router-link to="starships">
+              <router-link to="/starships">
                 Starships
               </router-link>
             </nav>

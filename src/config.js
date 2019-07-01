@@ -1,3 +1,3 @@
 export default {
-  baseApiUrl: "http://api.url"
+  baseApiUrl: "https://swapi.co/api/"
 }

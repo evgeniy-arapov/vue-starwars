@@ -2,7 +2,8 @@ import Vue from "vue"
 import Vuex from "vuex"
 //import axios from "axios"
 
-import newModule from "@/store/modules/newModule"
+import people from "@/store/modules/people"
+import starships from "@/store/modules/starships"
 
 Vue.use(Vuex)
 
@@ -27,7 +28,8 @@ export default new Vuex.Store({
     }
   },
   modules: {
-    newModule
+    people,
+    starships
   },
   plugins: []
 })
