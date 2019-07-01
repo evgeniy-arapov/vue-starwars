@@ -21,7 +21,19 @@
         </p>
       </div>
     </div>
-    <div>Films: {{ person.films }}</div>
+    <div class="flex">
+      <div>Films:</div>
+      <div class="mx-2 flex flex-col">
+        <template v-if="person.resolvedFilms && person.resolvedFilms.length">
+          <p v-for="film in person.resolvedFilms" :key="film.id">
+            {{ film.title }}
+          </p>
+        </template>
+        <p v-else>
+          None
+        </p>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -45,13 +57,19 @@
       async fetchData () {
         const newPerson = await this.getPerson(this.$route.params.id)
         newPerson.resolvedStarships = await this.resolveStarships(newPerson.starships)
+        newPerson.resolvedFilms = await this.resolveFilms(newPerson.films)
         this.person = newPerson
       },
       async resolveStarships (starshipsUrls) {
         const promises = starshipsUrls.map(url => this.getStarship(getIdFromUrl(url)))
         return Promise.all(promises)
       },
+      async resolveFilms (filmsUrls) {
+        const promises = filmsUrls.map(url => this.getFilm(getIdFromUrl(url)))
+        return Promise.all(promises)
+      },
       ...mapActions("people", ["getPerson"]),
+      ...mapActions("films", ["getFilm"]),
       ...mapActions("starships", ["getStarship"])
     }
   }

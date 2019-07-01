@@ -4,6 +4,7 @@ import Vuex from "vuex"
 
 import people from "@/store/modules/people"
 import starships from "@/store/modules/starships"
+import films from "@/store/modules/films"
 
 Vue.use(Vuex)
 
@@ -29,7 +30,8 @@ export default new Vuex.Store({
   },
   modules: {
     people,
-    starships
+    starships,
+    films
   },
   plugins: []
 })
