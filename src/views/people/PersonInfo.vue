@@ -46,8 +46,6 @@
         const newPerson = await this.getPerson(this.$route.params.id)
         newPerson.resolvedStarships = await this.resolveStarships(newPerson.starships)
         this.person = newPerson
-        console.log(this.person)
-        console.log(this.person.resolvedStarships)
       },
       async resolveStarships (starshipsUrls) {
         const promises = starshipsUrls.map(url => this.getStarship(getIdFromUrl(url)))

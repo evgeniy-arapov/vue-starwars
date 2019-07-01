@@ -3,7 +3,7 @@
     <router-link class="item"
                  v-for="item in items"
                  :key="item.id"
-                 :to="{name: 'personInfo', params: {id: item.id}}">
+                 :to="{name: routeName, params: {id: item.id}}">
       {{ item.name }}
     </router-link>
   </div>
@@ -15,17 +15,14 @@
       items: {
         type: Array,
         default: () => []
+      },
+      routeName : {
+        type: String,
+        required: true
       }
     },
     data () {
       return {}
-    },
-    methods: {
-      getIdFromUrl (url) {
-        const urlArr = url.split("/")
-        console.log(urlArr)
-        return urlArr[urlArr.length - 2]
-      }
     }
   }
 </script>

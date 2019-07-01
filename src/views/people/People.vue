@@ -1,6 +1,6 @@
 <template>
   <div class="container flex">
-    <sidebar :items="pagePeople"/>
+    <sidebar :items="pagePeople" route-name="personInfo"/>
     <router-view/>
   </div>
 </template>
