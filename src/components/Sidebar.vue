@@ -29,6 +29,7 @@
 
 <style lang="scss">
   .sidebar {
+    border: 1px solid black;
     .item {
       display: block;
 

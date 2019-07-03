@@ -41,33 +41,19 @@
 </template>
 
 <script>
-  import tailwindConfig from "@/../tailwind.config"
+  import isMobileScreenMixin from "@/mixins/isMobileScreen"
 
   export default {
+    mixins: [isMobileScreenMixin],
     data () {
       return {
-        isMenuOpen: false,
-        documentWidth: null
-      }
-    },
-    created() {
-      this.onResize()
-    },
-    mounted () {
-      window.addEventListener("resize", this.onResize)
-    },
-    methods: {
-      onResize () {
-        this.documentWidth = document.documentElement.clientWidth
+        isMenuOpen: false
       }
     },
     computed: {
       isMenuShow () {
-        return this.documentWidth >= parseInt(tailwindConfig.theme.screens.sm) || this.isMenuOpen
+        return !this.isMobileScreen || this.isMenuOpen
       }
-    },
-    beforeDestroy () {
-      window.removeEventListener("resize", this.onResize)
     }
   }
 </script>
