@@ -13,21 +13,6 @@ export default new Vuex.Store({
   state: {
 
   },
-  mutations: {
-    NEW_MUTATION (/*state, payload*/) {
-
-    }
-  },
-  actions: {
-    async newMutation (/*{commit, dispatch, state}, payload*/) {
-
-    }
-  },
-  getters: {
-    newGetter (/*state*/) {
-
-    }
-  },
   modules: {
     people,
     starships,

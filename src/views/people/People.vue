@@ -1,7 +1,12 @@
 <template>
   <div class="container sm:flex">
-    <div class="transition-wrapper relative" v-if="isMobileScreen">
-      <transition name="slide-left">
+    <div :class="[
+           'transition-wrapper',
+           'relative',
+           {'flex-row-reverse': transitionName === 'slide-right'}
+         ]"
+         v-if="isMobileScreen">
+      <transition :name="transitionName">
         <sidebar :items="pagePeople" route-name="personInfo" v-if="$route.name === 'people'"/>
         <router-view v-else class="router-view"/>
       </transition>
@@ -24,7 +29,9 @@
     mixins: [isMobileScreenMixin],
     components: {Sidebar},
     data () {
-      return {}
+      return {
+        transitionName: "slide-left"
+      }
     },
     async created () {
       await this.getPeople()
@@ -34,6 +41,13 @@
     },
     computed: {
       ...mapState(["pagePeople"])
+    },
+    watch: {
+      $route (to, from) {
+        const toDepth = to.path.split("/").length
+        const fromDepth = from.path.split("/").length
+        this.transitionName = toDepth < fromDepth ? "slide-right" : "slide-left"
+      }
     }
   }
 </script>
@@ -52,21 +66,47 @@
     }
   }
 
-  .slide-left-enter {
-    margin-left: 20%;
-  }
-  .slide-left-enter-to {
-    margin-left: 20%;
-  }
-  .slide-left-leave {
-    margin-left: 0;
-  }
-  .slide-left-leave-to {
-    margin-left: -120%;
+  .slide-left {
+    &-enter {
+      margin-left: 20%;
+    }
+
+    &-enter-to {
+      margin-left: 20%;
+    }
+
+    &-leave {
+      margin-left: 0;
+    }
+
+    &-leave-to {
+      margin-left: -120%;
+    }
+
+    &-enter-active, &-leave-active {
+      transition: all 0.4s ease;
+    }
   }
 
-  .slide-left-enter-active, .slide-left-leave-active {
-    transition: all 0.4s ease;
+  .slide-right {
+    flex-direction: row-reverse;
+    &-enter {
+      margin-right: 20%;
+    }
+
+    &-enter-to {
+      margin-right: 20%;    }
+
+    &-leave {
+      margin-right: 0;    }
+
+    &-leave-to {
+      margin-right: -120%;
+    }
+
+    &-enter-active, &-leave-active {
+      transition: all 0.4s ease;
+    }
   }
 
 </style>

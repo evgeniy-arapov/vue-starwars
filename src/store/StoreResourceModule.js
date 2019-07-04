@@ -15,7 +15,7 @@ export default class StoreResourceModule {
     this.state = {
       count: null,
       page: 1,
-      [LOWERCASE_PLURAL]: [],
+      [LOWERCASE_PLURAL]: {},
       [`page${CAPITALIZE_PLURAL}`]: []
     }
     this.actions = {
@@ -42,12 +42,12 @@ export default class StoreResourceModule {
     }
     this.mutations = {
       [`SET_${UPPERCASE_PLURAL}`]: (state, payload) => {
-        state[`page${CAPITALIZE_PLURAL}`] = payload
-      },
-      [`SET_PAGE_${UPPERCASE_PLURAL}`]: (state, payload) => {
         payload.forEach(el => {
           state[LOWERCASE_PLURAL][el.id] = el
         })
+      },
+      [`SET_PAGE_${UPPERCASE_PLURAL}`]: (state, payload) => {
+        state[`page${CAPITALIZE_PLURAL}`] = payload
       },
       SET_PAGE (state, payload) {
         state.page = payload
