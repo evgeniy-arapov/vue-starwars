@@ -1,4 +1,3 @@
 export default function (url) {
-  const urlArr = url.split("/")
-  return urlArr[urlArr.length-2]
+  return url.split("/").reverse().find(el => parseInt(el))
 }
