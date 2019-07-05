@@ -2,7 +2,6 @@
   <div class="container sm:flex">
     <div :class="[
            'transition-wrapper',
-           'relative',
            {'flex-row-reverse': transitionName === 'slide-right'}
          ]"
          v-if="isMobileScreen">
@@ -59,6 +58,7 @@
     display: flex;
     flex-wrap: nowrap;
     align-items: flex-start;
+    position: relative;
 
     > * {
       width: 100%;
@@ -89,7 +89,6 @@
   }
 
   .slide-right {
-    flex-direction: row-reverse;
     &-enter {
       margin-right: 20%;
     }

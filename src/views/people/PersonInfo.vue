@@ -1,5 +1,6 @@
 <template>
   <div>
+    <BackBtn v-if="isMobileScreen"/>
     <div>Name: {{ person.name }}</div>
     <div>Birth year: {{ person.birth_year }}</div>
     <div>Eye Color: {{ person.eye_color }}</div>
@@ -39,8 +40,12 @@
 
 <script>
   import { mapActions } from "vuex"
+  import BackBtn from "@/components/ui/BackBtn"
+  import isMobileScreenMixin from "@/mixins/isMobileScreen"
 
   export default {
+    components: {BackBtn},
+    mixins: [isMobileScreenMixin],
     data () {
       return {
         person: {}
