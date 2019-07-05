@@ -11,8 +11,8 @@
     <div class="flex">
       <div>Starships:</div>
       <div class="mx-2 flex flex-col">
-        <template v-if="person.resolvedStarships && person.resolvedStarships.length">
-          <p v-for="ship in person.resolvedStarships" :key="ship.id">
+        <template v-if="person.starships && person.starships.length">
+          <p v-for="ship in person.starships" :key="ship.id">
             {{ ship.name }}
           </p>
         </template>
@@ -24,8 +24,8 @@
     <div class="flex">
       <div>Films:</div>
       <div class="mx-2 flex flex-col">
-        <template v-if="person.resolvedFilms && person.resolvedFilms.length">
-          <p v-for="film in person.resolvedFilms" :key="film.id">
+        <template v-if="person.films && person.films.length">
+          <p v-for="film in person.films" :key="film.id">
             {{ film.title }}
           </p>
         </template>
@@ -39,7 +39,6 @@
 
 <script>
   import { mapActions } from "vuex"
-  import getIdFromUrl from "@/libs/getIdFromUrl"
 
   export default {
     data () {
@@ -56,17 +55,8 @@
     methods: {
       async fetchData () {
         const newPerson = await this.getPerson(this.$route.params.id)
-        newPerson.resolvedStarships = await this.resolveStarships(newPerson.starships)
-        newPerson.resolvedFilms = await this.resolveFilms(newPerson.films)
+        await newPerson.resolveRelations()
         this.person = newPerson
-      },
-      async resolveStarships (starshipsUrls) {
-        const promises = starshipsUrls.map(url => this.getStarship(getIdFromUrl(url)))
-        return Promise.all(promises)
-      },
-      async resolveFilms (filmsUrls) {
-        const promises = filmsUrls.map(url => this.getFilm(getIdFromUrl(url)))
-        return Promise.all(promises)
       },
       ...mapActions("people", ["getPerson"]),
       ...mapActions("films", ["getFilm"]),

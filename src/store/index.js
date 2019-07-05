@@ -1,6 +1,5 @@
 import Vue from "vue"
 import Vuex from "vuex"
-//import axios from "axios"
 
 import people from "@/store/modules/people"
 import starships from "@/store/modules/starships"
@@ -17,6 +16,5 @@ export default new Vuex.Store({
     people,
     starships,
     films
-  },
-  plugins: []
+  }
 })

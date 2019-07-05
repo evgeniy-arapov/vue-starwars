@@ -1,3 +1,3 @@
-import StoreResourceModule from "@/store/StoreResourceModule"
+import StoreResourceModule from "@/store/modules/StoreResourceModule"
 
 export default new StoreResourceModule("starships")

@@ -43,7 +43,6 @@
 
 <script>
   import { mapActions } from "vuex"
-  import getIdFromUrl from "@/libs/getIdFromUrl"
 
   export default {
     data () {
@@ -60,20 +59,11 @@
     methods: {
       async fetchData () {
         const newStarship = await this.getStarship(this.$route.params.id)
-        newStarship.resolvedPeople = await this.resolvePeople(newStarship.pilots)
-        newStarship.resolvedFilms = await this.resolveFilms(newStarship.films)
+        await newStarship.resolveRelations()
         this.starship = newStarship
       },
-      async resolvePeople (peopleUrls) {
-        const promises = peopleUrls.map(url => this.getPerson(getIdFromUrl(url)))
-        return Promise.all(promises)
-      },
-      async resolveFilms (filmsUrls) {
-        const promises = filmsUrls.map(url => this.getFilm(getIdFromUrl(url)))
-        return Promise.all(promises)
-      },
-      ...mapActions("people", ["getPerson"]),
-      ...mapActions("films", ["getFilm"]),
+      ...mapActions("people", ["getPerson", "resolvePeople"]),
+      ...mapActions("films", ["getFilm", "resolveFilms"]),
       ...mapActions("starships", ["getStarship"])
     }
   }
