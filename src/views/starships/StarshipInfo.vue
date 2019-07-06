@@ -1,5 +1,6 @@
 <template>
   <div>
+    <BackBtn v-if="isMobileScreen"/>
     <div>MGLT: {{ starship.MGLT }}</div>
     <div>Cargo Capacity: {{ starship.cargo_capacity }}</div>
     <div>Consumables: {{ starship.consumables }}</div>
@@ -43,8 +44,12 @@
 
 <script>
   import { mapActions } from "vuex"
+  import BackBtn from "@/components/ui/BackBtn"
+  import isMobileScreenMixin from "@/mixins/isMobileScreen"
 
   export default {
+    components: {BackBtn},
+    mixins: [isMobileScreenMixin],
     data () {
       return {
         starship: {}
