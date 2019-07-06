@@ -16,8 +16,8 @@
     <div class="flex">
       <div>Pilots:</div>
       <div class="mx-2 flex flex-col">
-        <template v-if="starship.resolvedPeople && starship.resolvedPeople.length">
-          <p v-for="pilot in starship.resolvedPeople" :key="pilot.id">
+        <template v-if="starship.pilots && starship.pilots.length">
+          <p v-for="pilot in starship.pilots" :key="pilot.id">
             {{ pilot.name }}
           </p>
         </template>
@@ -29,8 +29,8 @@
     <div class="flex">
       <div>Films:</div>
       <div class="mx-2 flex flex-col">
-        <template v-if="starship.resolvedFilms && starship.resolvedFilms.length">
-          <p v-for="film in starship.resolvedFilms" :key="film.id">
+        <template v-if="starship.films && starship.films.length">
+          <p v-for="film in starship.films" :key="film.id">
             {{ film.title }}
           </p>
         </template>

@@ -13,12 +13,16 @@ export default class ResourceModel {
   }
   async resolveRelations () {
     const promises = []
-    StoreResourceModule.resources.forEach(resource => {
-      if(this[resource] && this[resource].length > 0) {
+    const resources = {...this.aliases}
+    StoreResourceModule.resources.forEach(el => {
+      resources[el] = el
+    })
+    Object.entries(resources).forEach(([alias, resource]) => {
+      if(this[alias] && this[alias].length > 0) {
         promises.push(store
-          .dispatch(`${resource}/resolve${capitalize(resource)}`, this[resource])
+          .dispatch(`${resource}/resolve${capitalize(resource)}`, this[alias])
           .then(res => {
-            this[resource] = res
+            this[alias] = res
             this.resolved = true
             return res
           }))
@@ -27,3 +31,5 @@ export default class ResourceModel {
     return Promise.all(promises)
   }
 }
+
+ResourceModel.prototype.aliases = {}

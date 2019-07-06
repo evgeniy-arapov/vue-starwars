@@ -6,7 +6,7 @@ import ResourceModel from "@/store/models/resource"
 
 
 export default class StoreResourceModule {
-  constructor (resourceName = "resources") {
+  constructor (resourceName = "resources", Model = ResourceModel) {
     const LOWERCASE_PLURAL = isPlural(resourceName) ?
       resourceName.toLowerCase() : plural(resourceName.toLowerCase())
     const CAPITALIZE_PLURAL = capitalize(LOWERCASE_PLURAL)
@@ -46,7 +46,7 @@ export default class StoreResourceModule {
       },
       [`resolve${CAPITALIZE_PLURAL}`]: async ({dispatch}, urls) => {
         const promises = urls.map(url => {
-          const id = url instanceof ResourceModel ? url.id : getIdFromUrl(url)
+          const id = url instanceof Model ? url.id : getIdFromUrl(url)
           return dispatch(`get${CAPITALIZE_SINGULAR}`, id)
         })
         return Promise.all(promises)
@@ -55,11 +55,11 @@ export default class StoreResourceModule {
     this.mutations = {
       [`SET_${UPPERCASE_PLURAL}`]: (state, payload) => {
         payload.forEach(el => {
-          state[LOWERCASE_PLURAL][el.id] = new ResourceModel(el)
+          state[LOWERCASE_PLURAL][el.id] = new Model(el)
         })
       },
       [`SET_PAGE_${UPPERCASE_PLURAL}`]: (state, payload) => {
-        state[`page${CAPITALIZE_PLURAL}`] = payload.map(el => new ResourceModel(el))
+        state[`page${CAPITALIZE_PLURAL}`] = payload.map(el => new Model(el))
       },
       SET_PAGE (state, payload) {
         state.page = payload
