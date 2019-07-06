@@ -17,8 +17,9 @@ export default class StoreResourceModule {
 
     this.namespaced = true
     this.state = {
-      count: null,
+      count: 0,
       page: 1,
+      perPage: 10,
       [LOWERCASE_PLURAL]: {},
       [`page${CAPITALIZE_PLURAL}`]: []
     }
@@ -32,7 +33,7 @@ export default class StoreResourceModule {
         commit(`SET_${UPPERCASE_PLURAL}`, resources)
         commit(`SET_PAGE_${UPPERCASE_PLURAL}`, resources)
         commit("SET_PAGE", page)
-        commit("SET_COUNT", data.count)
+        commit("SET_COUNT", parseInt(data.count))
         return state[`page${CAPITALIZE_PLURAL}`]
       },
       [`get${CAPITALIZE_SINGULAR}`]: async ({commit, getters}, id) => {

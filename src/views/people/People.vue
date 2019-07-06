@@ -1,7 +1,12 @@
 <template>
   <div class="container sm:flex">
     <transition-page v-if="isMobileScreen">
-      <sidebar :items="pagePeople" route-name="personInfo" v-if="$route.name === 'people'"/>
+      <sidebar
+          :items="pagePeople"
+          route-name="personInfo"
+          :pagination-info="paginationInfo"
+          @change-page="getPeople"
+          v-if="$route.name === 'people'"/>
       <router-view v-else class="router-view"/>
     </transition-page>
     <template v-else>
@@ -32,7 +37,14 @@
       ...mapActions(["getPeople"])
     },
     computed: {
-      ...mapState(["pagePeople"])
+      paginationInfo () {
+        return {
+          page: this.page,
+          totalCount: this.count,
+          perPage: this.perPage
+        }
+      },
+      ...mapState(["pagePeople", "page", "count", "perPage"])
     }
   }
 </script>
